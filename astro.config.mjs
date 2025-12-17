@@ -5,13 +5,15 @@ import sitemap from "@astrojs/sitemap";
 
 import cloudflare from "@astrojs/cloudflare";
 
+import react from "@astrojs/react";
+
 // https://astro.build/config
 export default defineConfig({
-	site: "https://example.com",
-	integrations: [mdx(), sitemap()],
-	adapter: cloudflare({
-		platformProxy: {
-			enabled: true,
-		},
-	}),
+    site: "https://example.com",
+    integrations: [mdx(), sitemap(), react()],
+    adapter: cloudflare({
+        platformProxy: {
+            enabled: true,
+        },
+    }),
 });
