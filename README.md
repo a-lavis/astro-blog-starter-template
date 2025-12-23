@@ -44,16 +44,16 @@ Any static assets, like images, can be placed in the `public/` directory.
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                           | Action                                           |
-| :-------------------------------- | :----------------------------------------------- |
-| `npm install`                     | Installs dependencies                            |
-| `npm run dev`                     | Starts local dev server at `localhost:4321`      |
-| `npm run build`                   | Build your production site to `./dist/`          |
-| `npm run preview`                 | Preview your build locally, before deploying     |
-| `npm run astro ...`               | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help`         | Get help using the Astro CLI                     |
-| `npm run build && npm run deploy` | Deploy your production site to Cloudflare        |
-| `npm wrangler tail`               | View real-time logs for all Workers              |
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `bun install`             | Installs dependencies                            |
+| `bun dev`                 | Starts local dev server at `localhost:4321`      |
+| `bun run build`           | Build your production site to `./dist/`          |
+| `bun preview`             | Preview your build locally, before deploying     |
+| `bun astro ...`           | Run CLI commands like `astro add`, `astro check` |
+| `bun astro -- --help`     | Get help using the Astro CLI                     |
+| `bun build && bun deploy` | Deploy your production site to Cloudflare        |
+| `bun wrangler tail`       | View real-time logs for all Workers              |
 
 ## 👀 Want to learn more?
 
