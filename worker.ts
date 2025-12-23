@@ -11,6 +11,8 @@ export default {
         "Cache-Control",
         "public, max-age=3600, s-maxage=3600"
       );
+
+      return response;
     }
 
     // Pass through all other requests to Astro worker
