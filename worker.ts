@@ -1,7 +1,13 @@
-// @ts-ignore
-import astroWorker from "../dist/_worker.js/index.js";
+import astroWorker from "./dist/_worker.js/index.js";
 
 declare const __BUILD_ID__: string; // See astro.config.mts
+
+// Extend CacheStorage with Cloudflare's default property
+declare global {
+  interface CacheStorage {
+    readonly default: Cache;
+  }
+}
 
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
