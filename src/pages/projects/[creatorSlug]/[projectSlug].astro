@@ -1,0 +1,23 @@
+---
+import BaseHead from "../../../components/BaseHead.astro";
+import { TestReactComponent } from "../../../components/TestReactComponent";
+
+export const prerender = false;
+
+const { creatorSlug, projectSlug } = Astro.params;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={"foobar"} description={"wow"} />
+  </head>
+  <body>
+    <body>
+      <main>
+        <h1>{creatorSlug} - {projectSlug}</h1>
+        <TestReactComponent client:only="react" />
+      </main>
+    </body>
+  </body>
+</html>
