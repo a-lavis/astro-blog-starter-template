@@ -31,7 +31,7 @@
 	"private": true,
 	"scripts": {
 		"astro": "astro",
-		"build": "astro build && bun build-worker.ts",
+		"build": "astro build",
 		"cf-typegen": "wrangler types",
 		"check": "bun run build && tsc && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
