@@ -16,7 +16,9 @@ export default {
     if (url.pathname.startsWith("/projects/")) {
       // Check edge cache using URL + BUILD_ID as key
       const cache = caches.default;
-      const cacheKey = `${BUILD_ID}:${url.toString()}`;
+      const cacheUrl = new URL(request.url);
+      cacheUrl.searchParams.set("__build_id", BUILD_ID);
+      const cacheKey = cacheUrl.toString();
       let cachedResponse = await cache.match(cacheKey);
 
       if (!cachedResponse) {
