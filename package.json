@@ -31,12 +31,12 @@
 	"private": true,
 	"scripts": {
 		"astro": "astro",
-		"build": "astro build",
+		"build": "astro build && bun build-worker.ts",
 		"cf-typegen": "wrangler types",
-		"check": "astro build && tsc && wrangler deploy --dry-run",
+		"check": "bun run build && tsc && wrangler deploy --dry-run",
 		"deploy": "wrangler deploy",
 		"dev": "astro dev",
-		"preview": "astro build && wrangler dev"
+		"preview": "bun run build && wrangler dev"
 	},
 	"type": "module"
 }

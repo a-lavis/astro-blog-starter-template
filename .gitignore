@@ -200,3 +200,4 @@ dist
 
 ### Astro ###
 .astro/
+worker.build.ts

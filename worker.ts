@@ -1,6 +1,6 @@
 import astroWorker from "./dist/_worker.js/index.js";
 
-declare const __BUILD_ID__: string; // See astro.config.mts
+const BUILD_ID = "__BUILD_ID_PLACEHOLDER__";
 
 // Extend CacheStorage with Cloudflare's default property
 declare global {
@@ -50,7 +50,7 @@ export default {
 
         if (response.ok) {
           const bodyText = await response.text();
-          const etag = `"${__BUILD_ID__}"`;
+          const etag = `"${BUILD_ID}"`;
 
           // Create new response with proper headers
           response = new Response(bodyText, {

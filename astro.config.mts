@@ -6,10 +6,6 @@ import cloudflare from "@astrojs/cloudflare";
 
 import react from "@astrojs/react";
 
-import { execSync } from "child_process";
-
-const BUILD_ID = execSync("git rev-parse --short HEAD").toString().trim();
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
@@ -19,9 +15,4 @@ export default defineConfig({
       enabled: true,
     },
   }),
-  vite: {
-    define: {
-      __BUILD_ID__: JSON.stringify(BUILD_ID),
-    },
-  },
 });
