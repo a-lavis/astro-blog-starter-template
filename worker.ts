@@ -14,19 +14,9 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname.startsWith("/projects/")) {
-      const etag = `"${BUILD_ID}"`;
-
-      // Create cache key without cookies
-      const cacheKey = new Request(url.toString(), {
-        method: request.method,
-        headers: new Headers({
-          Accept: request.headers.get("Accept") || "*/*",
-          "Accept-Encoding": request.headers.get("Accept-Encoding") || "gzip",
-        }),
-      });
-
-      // Check edge cache
+      // Check edge cache using URL + BUILD_ID as key
       const cache = caches.default;
+      const cacheKey = `${BUILD_ID}:${url.toString()}`;
       let cachedResponse = await cache.match(cacheKey);
 
       if (!cachedResponse) {
@@ -43,7 +33,6 @@ export default {
             headers: response.headers,
           });
 
-          response.headers.set("ETag", etag);
           response.headers.set(
             "Cache-Control",
             "public, max-age=0, must-revalidate"
@@ -58,7 +47,6 @@ export default {
 
       // Return cached response with proper headers
       const response = new Response(cachedResponse.body, cachedResponse);
-      response.headers.set("ETag", etag);
       response.headers.set(
         "Cache-Control",
         "public, max-age=0, must-revalidate"
