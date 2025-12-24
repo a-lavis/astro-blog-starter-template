@@ -14,6 +14,8 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname.startsWith("/projects/")) {
+      const etag = `"${BUILD_ID}"`;
+
       // Create cache key without cookies
       const cacheKey = new Request(url.toString(), {
         method: request.method,
@@ -27,30 +29,12 @@ export default {
       const cache = caches.default;
       let cachedResponse = await cache.match(cacheKey);
 
-      // Handle conditional requests (If-None-Match)
-      const ifNoneMatch = request.headers.get("If-None-Match");
-
-      if (cachedResponse && ifNoneMatch) {
-        const cachedEtag = cachedResponse.headers.get("ETag");
-        if (cachedEtag && cachedEtag === ifNoneMatch) {
-          // Content hasn't changed, return 304
-          return new Response(null, {
-            status: 304,
-            headers: {
-              ETag: cachedEtag,
-              "Cache-Control": "public, max-age=0, must-revalidate",
-            },
-          });
-        }
-      }
-
       if (!cachedResponse) {
         // Not cached - fetch from Astro
         let response = (await astroWorker.fetch(request, env, ctx)) as Response;
 
         if (response.ok) {
           const bodyText = await response.text();
-          const etag = `"${BUILD_ID}"`;
 
           // Create new response with proper headers
           response = new Response(bodyText, {
@@ -74,6 +58,7 @@ export default {
 
       // Return cached response with proper headers
       const response = new Response(cachedResponse.body, cachedResponse);
+      response.headers.set("ETag", etag);
       response.headers.set(
         "Cache-Control",
         "public, max-age=0, must-revalidate"
