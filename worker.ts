@@ -9,6 +9,12 @@ export default {
 
     // Create a versioned cache key by adding cache version to URL
     const cacheUrl = new URL(request.url);
+    // Normalize URL by removing trailing slash
+    if (cacheUrl.pathname.endsWith("/") && cacheUrl.pathname.length > 1) {
+      cacheUrl.pathname = cacheUrl.pathname.slice(0, -1);
+    }
+    // Remove all query parameters for cache key
+    cacheUrl.search = "";
     cacheUrl.searchParams.set("cache_v", env.CACHE_VERSION);
     const cacheKey = new Request(cacheUrl.toString(), request);
     const cache = (caches as any).default as Cache;
