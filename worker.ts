@@ -1,5 +1,10 @@
-import astroWorker from "./dist/_worker.js/index.js";
+import astroWorkerModule from "./dist/_worker.js/index.js";
 
+type WorkerModule = {
+  fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response>;
+};
+
+const astroWorker = astroWorkerModule as WorkerModule;
 const VALID_LANGS = ["en", "zh", "ja", "it", "fr", "de", "es"];
 
 export default {
@@ -65,4 +70,4 @@ export default {
     response.headers.set("X-Cache-Key", cacheKeyString);
     return response;
   },
-};
+} satisfies WorkerModule;
