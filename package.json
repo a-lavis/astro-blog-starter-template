@@ -34,7 +34,7 @@
 		"build": "astro build",
 		"cf-typegen": "wrangler types",
 		"check": "bun run build && tsc && wrangler deploy --dry-run",
-		"deploy": "CACHE_VERSION=$(date +%s) wrangler deploy",
+		"deploy": "wrangler deploy --var CACHE_VERSION:$(date +%s)",
 		"dev": "astro dev",
 		"preview": "bun run build && wrangler dev"
 	},
